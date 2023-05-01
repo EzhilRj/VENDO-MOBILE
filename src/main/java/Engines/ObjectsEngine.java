@@ -15,9 +15,11 @@ public class ObjectsEngine {
     public static By Statetxtbox = By.xpath("//android.widget.EditText[@text='State*\n" + "Select State']");
     public static By Areatxtbox = By.xpath("//android.widget.EditText[@text='Area*\n" + "Select Area']");
     public static By Aadharnotxtbox = By.xpath("//android.widget.EditText[@text='Aadhaar No*\n" + "Aadhaar No']");
+    public static By capturebutton = By.xpath("//android.widget.Button[@index='1']");
+    public static By Listview = By.xpath("//android.widget.TextView[@content-desc=\"List View\"]");
 
-
-
+    public static By Dialogbox = By.id("com.android.permissioncontroller:id/grant_dialog");
+    public static By Allowbutton = By.xpath("//android.widget.Button[@index='0']");
 
 
 

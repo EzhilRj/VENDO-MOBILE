@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static Engines.ObjectsEngine.Locator;
+import static Engines.ObjectsEngine.*;
 import static Scripts.Baseclass.driver;
 import static Utilities.Constants.Galleryimagname;
 import static Utilities.Constants.TClocation;
@@ -28,6 +29,8 @@ import static Utilities.ExcelUtils.Locators;
 import static Utilities.ExcelUtils.TestDatas;
 
 public class AppiumUtills {
+
+    private static boolean dialog;
 
     public String Screenshot(String Testcasename, AppiumDriver driver) throws IOException {
 
@@ -51,16 +54,31 @@ public class AppiumUtills {
 
     public static void uploadImage(String uploadtype) throws InterruptedException, IOException {
 
+        dialog = driver.findElement(Dialogbox).isDisplayed();
+
         if(uploadtype.equalsIgnoreCase("Camera")){
-            Permissionhandler();
-            driver.findElement(AppiumBy.accessibilityId("Camera")).click();
-            driver.findElement(By.xpath("//android.widget.Button[@index='1']")).click();
+
+            if(dialog==true){
+
+                Permissionhandler();
+
+            }else {
+                driver.findElement(AppiumBy.accessibilityId("Camera")).click();
+                driver.findElement(capturebutton).click();
+            }
 
         }else{
-            driver.findElement(AppiumBy.accessibilityId("GALLERY")).click();
-            driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"List View\"]")).click();
-            driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + Galleryimagname + "\"));"));
-            driver.findElement(By.xpath("//android.widget.TextView[@text='"+Galleryimagname+"']")).click();
+            if(dialog==true){
+
+                Permissionhandler();
+
+            }else {
+                driver.findElement(AppiumBy.accessibilityId("GALLERY")).click();
+                driver.findElement(Listview).click();
+                driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + Galleryimagname + "\"));"));
+                driver.findElement(By.xpath("//android.widget.TextView[@text='"+Galleryimagname+"']")).click();
+
+            }
 
         }
     }
@@ -68,76 +86,12 @@ public class AppiumUtills {
     public static void Permissionhandler(){
 
         for (int i = 0; i < 4; i++) {
-            if(driver.findElement(By.id("com.android.permissioncontroller:id/grant_dialog")).isDisplayed()) {
-                driver.findElement(By.xpath("//android.widget.Button[@index='0']")).click();
+            if(driver.findElement(Dialogbox).isDisplayed()) {
+                driver.findElement(Allowbutton).click();
             }
         }
     }
 
 
-
-    public static void TextReader() throws IOException {
-
-        driver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Terms & Conditions\"]")).click();
-
-
-        for (int i = 1; i < 16; i++) {
-
-            String[] getcontent = new String[]{driver.findElement(By.xpath("//android.view.View[@index='" + i + "']")).getAttribute("content-desc\n")};
-
-            try {
-
-                FileWriter fw = new FileWriter(TClocation);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter pw = new PrintWriter(bw);
-
-                for (String line : getcontent) {
-                    pw.println(line);
-                }
-
-                pw.close();
-                bw.close();
-                fw.close();
-
-                System.out.println("Successfully wrote to the file.");
-
-            }catch (Exception e) {
-                System.out.println("An error occurred while writing to the file: " + e.getMessage());
-            }
-
-        }
-
-
-
-    }
-
-
-
-
-
-
-    public static void Fill(WebElement Loc) throws InterruptedException {
-
-        if(Locator.toString().contains("Nationality")){
-            driver.findElement(ObjectsEngine.Nationalitytxtbox).sendKeys(TestDatas);
-            driver.findElement(By.xpath(" //android.widget.EditText[@text='Country*']")).click();
-        }else if (Locator.toString().contains("Country")) {
-            driver.findElement(ObjectsEngine.Countrytxtbox).sendKeys(TestDatas);
-            driver.findElement(By.xpath("//android.widget.EditText[@text='State*']")).click();
-        }else if (Locator.toString().contains("State")) {
-            driver.findElement(ObjectsEngine.Statetxtbox).sendKeys(TestDatas);
-            Thread.sleep(1000);
-            driver.findElement(AppiumBy.accessibilityId(TestDatas)).click();
-        }else if (Locator.toString().contains("Area")) {
-            driver.findElement(ObjectsEngine.Areatxtbox).sendKeys(TestDatas);
-            Thread.sleep(1000);
-            driver.findElement(AppiumBy.accessibilityId(TestDatas)).click();
-        }else if (Locator.toString().contains("Aadhaar No")) {
-            driver.findElement(ObjectsEngine.Aadharnotxtbox).sendKeys(TestDatas);
-        }else{
-
-            driver.findElement(Locator).sendKeys(TestDatas);
-        }
-    }
 
 }

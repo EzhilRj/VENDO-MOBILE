@@ -21,7 +21,7 @@ import java.net.URL;
 import java.nio.channels.FileLock;
 import java.util.List;
 
-import static Engines.ObjectsEngine.Locator;
+import static Engines.ObjectsEngine.*;
 import static Scripts.Baseclass.driver;
 import static Utilities.AppiumUtills.*;
 import static Utilities.Constants.*;
@@ -60,7 +60,26 @@ public class Actions extends Baseclass {
     public static void Enter() throws InterruptedException {
 
         driver.findElement(Locator).click();
-        Fill((WebElement) Locator);
+        if(Locator.toString().contains("Nationality")){
+            driver.findElement(Nationalitytxtbox).sendKeys(TestDatas);
+            driver.findElement(By.xpath(" //android.widget.EditText[@text='Country*']")).click();
+        }else if (Locator.toString().contains("Country")) {
+            driver.findElement(Countrytxtbox).sendKeys(TestDatas);
+            driver.findElement(By.xpath("//android.widget.EditText[@text='State*']")).click();
+        }else if (Locator.toString().contains("State")) {
+            driver.findElement(Statetxtbox).sendKeys(TestDatas);
+            Thread.sleep(1000);
+            driver.findElement(AppiumBy.accessibilityId(TestDatas)).click();
+        }else if (Locator.toString().contains("Area")) {
+            driver.findElement(Areatxtbox).sendKeys(TestDatas);
+            Thread.sleep(1000);
+            driver.findElement(AppiumBy.accessibilityId(TestDatas)).click();
+        }else if (Locator.toString().contains("Aadhaar No")) {
+            driver.findElement(Aadharnotxtbox).sendKeys(TestDatas);
+        }else{
+
+            driver.findElement(Locator).sendKeys(TestDatas);
+        }
 
     }
 
@@ -68,14 +87,10 @@ public class Actions extends Baseclass {
 
         if(Description.equalsIgnoreCase("Image Type")){
             uploadImage(TestDatas);
-        } else if (Description.equalsIgnoreCase("Terms & Conditions")) {
-
-            TextReader();
-        }
-        {
+        }{
             driver.findElement(Locator).click();
         }
-        
+
         if(Locator.toString().contains("android.widget.RadioButton")){
             List<WebElement> Radioptions  = driver.findElements(Locator);
             if(TestDatas.equalsIgnoreCase("Male")){
