@@ -74,21 +74,47 @@ public class AppiumUtills {
         }
     }
 
+
+
     public static void TextReader() throws IOException {
 
         driver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Terms & Conditions\"]")).click();
 
-        String getcontent = null;
+
         for (int i = 1; i < 16; i++) {
 
-            getcontent = driver.findElement(By.xpath("//android.view.View[@index='" + i + "']")).getAttribute("content-desc\n");
+            String[] getcontent = new String[]{driver.findElement(By.xpath("//android.view.View[@index='" + i + "']")).getAttribute("content-desc\n")};
+
+            try {
+
+                FileWriter fw = new FileWriter(TClocation);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+
+                for (String line : getcontent) {
+                    pw.println(line);
+                }
+
+                pw.close();
+                bw.close();
+                fw.close();
+
+                System.out.println("Successfully wrote to the file.");
+
+            }catch (Exception e) {
+                System.out.println("An error occurred while writing to the file: " + e.getMessage());
+            }
 
         }
 
-        List<String> lines = new ArrayList<>();
-        lines.add(getcontent);
-       // test
+
+
     }
+
+
+
+
+
 
     public static void Fill(WebElement Loc) throws InterruptedException {
 
