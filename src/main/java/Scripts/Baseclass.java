@@ -31,8 +31,6 @@ public class Baseclass {
     public AppiumDriverLocalService service;
     public static AndroidDriver driver;
 
-    String Nodepath = "C:\\Program Files\\nodejs\\node.exe";
-
 
     @BeforeTest
     public void StartApp() throws MalformedURLException {

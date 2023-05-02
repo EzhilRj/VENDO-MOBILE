@@ -54,33 +54,23 @@ public class AppiumUtills {
 
     public static void uploadImage(String uploadtype) throws InterruptedException, IOException {
 
-        dialog = driver.findElement(Dialogbox).isDisplayed();
 
-        if(uploadtype.equalsIgnoreCase("Camera")){
+        if(driver.findElements(Dialogbox).size()!=0) {
+            Permissionhandler();
+        }
 
-            if(dialog==true){
+            if(uploadtype.equalsIgnoreCase("Camera")){
 
-                Permissionhandler();
-
-            }else {
                 driver.findElement(AppiumBy.accessibilityId("Camera")).click();
+                Thread.sleep(500);
                 driver.findElement(capturebutton).click();
-            }
-
-        }else{
-            if(dialog==true){
-
-                Permissionhandler();
-
-            }else {
+            } else {
                 driver.findElement(AppiumBy.accessibilityId("GALLERY")).click();
                 driver.findElement(Listview).click();
                 driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + Galleryimagname + "\"));"));
                 driver.findElement(By.xpath("//android.widget.TextView[@text='"+Galleryimagname+"']")).click();
-
             }
 
-        }
     }
 
     public static void Permissionhandler(){

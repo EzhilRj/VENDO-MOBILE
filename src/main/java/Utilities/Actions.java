@@ -9,6 +9,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.apache.poi.ss.formula.functions.T;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -44,40 +45,21 @@ public class Actions extends Baseclass {
         Actions.driver = driver;
 
     }
-
-    public static void OpenApp() throws InterruptedException, MalformedURLException {
-
-
-        AppiumDriverLocalService service =  new AppiumServiceBuilder().withAppiumJS(new File(ServerPath)).withIPAddress("127.0.0.1").usingPort(4723).build();
-        service.start();
-        UiAutomator2Options options =  new UiAutomator2Options();
-        options.setDeviceName(Devicename);
-        options.setApp(Apppath);
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723"),options);
-
-    }
-
     public static void Enter() throws InterruptedException {
 
         driver.findElement(Locator).click();
-        if(Locator.toString().contains("Nationality")){
-            driver.findElement(Nationalitytxtbox).sendKeys(TestDatas);
-            driver.findElement(By.xpath(" //android.widget.EditText[@text='Country*']")).click();
-        }else if (Locator.toString().contains("Country")) {
-            driver.findElement(Countrytxtbox).sendKeys(TestDatas);
-            driver.findElement(By.xpath("//android.widget.EditText[@text='State*']")).click();
-        }else if (Locator.toString().contains("State")) {
-            driver.findElement(Statetxtbox).sendKeys(TestDatas);
-            Thread.sleep(1000);
-            driver.findElement(AppiumBy.accessibilityId(TestDatas)).click();
-        }else if (Locator.toString().contains("Area")) {
-            driver.findElement(Areatxtbox).sendKeys(TestDatas);
-            Thread.sleep(1000);
-            driver.findElement(AppiumBy.accessibilityId(TestDatas)).click();
-        }else if (Locator.toString().contains("Aadhaar No")) {
-            driver.findElement(Aadharnotxtbox).sendKeys(TestDatas);
-        }else{
 
+        if(Locator.toString().contains("Nationality")){
+            Nationalitytxtbox();
+        }else if (Locator.toString().contains("Country")) {
+            Countrytxtbox();
+        }else if (Locator.toString().contains("State")) {
+            State();
+        }else if (Locator.toString().contains("Area")) {
+            Area();
+        }else if (Locator.toString().contains("Aadhaar No")) {
+            AadharnotxtBox();
+        }else{
             driver.findElement(Locator).sendKeys(TestDatas);
         }
 
@@ -87,7 +69,7 @@ public class Actions extends Baseclass {
 
         if(Description.equalsIgnoreCase("Image Type")){
             uploadImage(TestDatas);
-        }{
+        }else{
             driver.findElement(Locator).click();
         }
 
@@ -111,8 +93,6 @@ public class Actions extends Baseclass {
             System.out.println(e.getMessage());
         }
     }
-
-
 
 }
 
