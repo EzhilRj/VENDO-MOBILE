@@ -6,7 +6,7 @@
     </listeners>
     <test name="AppiumSuite">
     <classes>
-        <class name="Scripts.SignupTest">
+        <class name="Scripts.Framework001">
         </class>
     </classes>
 </test>

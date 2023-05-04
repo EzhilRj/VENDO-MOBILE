@@ -1,22 +1,24 @@
 package Scripts;
 
+import AppModules.Signup_Action;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import static Engines.TestEngine.Execute;
+import static Engines.TestEngine.RunEngine;
+import static Engines.TestEngine.RunEngine;
 
-public class SignupTest extends Baseclass {
+public class Framework001 extends Baseclass {
 
     @Test
     public void ISPFillform() throws InterruptedException, IOException, InvocationTargetException, IllegalAccessException {
 
-        Thread.sleep(3000);
-        Execute();
-
-
+        Signup_Action action = new Signup_Action();
+        action.Execute();
     }
+
+
 
 
 }

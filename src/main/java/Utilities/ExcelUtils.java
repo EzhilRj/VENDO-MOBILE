@@ -55,7 +55,6 @@ public class ExcelUtils {
         Keywords = sheet.getRow(row).getCell(keywordcell).toString().trim();
         TestDatas = sheet.getRow(row).getCell(datacell).toString().trim();
 
-
         return Locators;
 
     }

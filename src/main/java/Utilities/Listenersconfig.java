@@ -8,7 +8,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class Listenersconfig extends AppiumUtills  implements ITestListener {
+public class Listenersconfig extends Utils implements ITestListener {
     ExtentTest test;
     ExtentReports extent = ExtentReportNG.Getreporterobject();
     AppiumDriver driver;

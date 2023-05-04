@@ -11,7 +11,7 @@ import static Utilities.ExcelUtils.totalrows;
 
 public class TestEngine {
 
-    public static void Execute() throws IOException, InvocationTargetException, IllegalAccessException, InterruptedException {
+    public static void RunEngine() throws IOException, InvocationTargetException, IllegalAccessException, InterruptedException {
 
         ExcelUtils.ReadExcel(Excelpath);
         MethodsEngine methodsEngine = new MethodsEngine();
