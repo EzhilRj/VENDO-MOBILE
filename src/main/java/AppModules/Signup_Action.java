@@ -18,8 +18,8 @@ public class Signup_Action {
         try{
             Assert.assertTrue(Actions.Verify());
         }catch (Exception e){
-            e.printStackTrace();
-            Assert.assertTrue(false);
+            e.getMessage();
+            Assert.fail();
 
         }
 

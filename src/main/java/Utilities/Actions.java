@@ -71,7 +71,7 @@ public class Actions extends Baseclass {
         Thread.sleep(1000);
         try {
             driver.hideKeyboard();
-            driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(100000)"));
+           driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(100000)"));
 
         }catch (Exception e){
             System.out.println(e.getMessage());

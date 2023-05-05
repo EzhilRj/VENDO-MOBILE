@@ -23,14 +23,23 @@ public class MethodsEngine {
 
     public void InvokeMethods() throws InvocationTargetException, IllegalAccessException, InterruptedException {
 
+        try{
 
-        for (int i = 0; i < methods.length; i++) {
+            for (int i = 0; i < methods.length; i++) {
 
-            if (methods[i].getName().equalsIgnoreCase(Keywords)) {
-                methods[i].invoke(actions);
-                break;
+                if (methods[i].getName().equalsIgnoreCase(Keywords)) {
+                    methods[i].invoke(actions);
+                    break;
+                }
             }
+
+        }catch(Exception e){
+
+            e.printStackTrace();
+
         }
+
+
 
     }
 }

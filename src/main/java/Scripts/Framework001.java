@@ -18,7 +18,4 @@ public class Framework001 extends Baseclass {
         action.Execute();
     }
 
-
-
-
 }
